@@ -10,6 +10,7 @@ import java.awt.Rectangle;
  */
 public class SnakeEntity{
 	
+	//Fields
 	private Rectangle snakeRect;
 	private int x;
 	private int y;
@@ -17,6 +18,7 @@ public class SnakeEntity{
 	private static final int SNAKE_HEIGHT = 10;
 	private static final Color SNAKE_COLOR = Color.WHITE;
 	
+	//Constructor
 	public SnakeEntity(int x,int y){
 		this.x = x;
 		this.y = y;

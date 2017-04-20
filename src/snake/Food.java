@@ -13,10 +13,13 @@ import java.util.Random;
  */
 public class Food{
 	
+	//Fields
 	private int x;
 	private int y;
 	private Random random;
 	
+	
+	//Constructors
 	public Food(){
 		this.random = new Random();
 		this.x = generateX();
@@ -41,6 +44,7 @@ public class Food{
 		}
 	}
 	
+	//Draws the food
 	public void draw(Graphics2D g2d){
 		g2d.setColor(Color.WHITE);
 		g2d.fill(new Rectangle(x,y,10,10));

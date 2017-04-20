@@ -15,12 +15,14 @@ import javax.swing.Timer;
 /**
  * 
  * @author Chen Wen Kang
- * Class for the Logic for Snake Game
+ * Class for the Game Logic of Snake
  *
  */
 
 public class Game extends JPanel implements ActionListener,KeyListener{
 	
+	
+	//Fields
 	private Snake snake;
 	private Food food;
 	private int score;
@@ -31,6 +33,8 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 	final public static int WINDOWS_WIDTH = 400;
 	final public static int WINDOWS_HEIGHT = 400;
 	
+	
+	//Contructor
 	public Game(){
 		this.snake = new Snake();
 		this.food = new Food();
@@ -42,14 +46,19 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 		this.setMinimumSize(new Dimension(WINDOWS_WIDTH,WINDOWS_HEIGHT));
 	}
 	
+	
+	//Timer initialisation from the Main Class
 	public void initTimer(Timer timer){
 		this.timer = timer;
 	}
 	
+	//Spawns a new food on the map
 	private void spawnNewFood(){
 		this.food = new Food();
 	}
 	
+	
+	//Checks the snake's collision with wall, food and itself
 	private void checkCollision(){
 		if(snake.getSnakeHead().getX()==food.getX()&&snake.getSnakeHead().getY()==food.getY()){
 			snake.grow();
@@ -69,20 +78,19 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 				}
 			}
 		}
-		isGameOver();
+		if(gameOver){
+			timer.stop();
+			scoreBoard.setText("Game Over ! Your Score is " + score + ". Press Space to Restart !");
+		}
 	}
 	
+	//Display score on a JLabel
 	private void displayScore(){
 		scoreBoard.setText("Score : "+score);
 	}
 	
-	private void isGameOver(){
-		if(gameOver){
-			timer.stop();
-			scoreBoard.setText("Game Over! Press Space to Restart!");
-		}
-	}
 	
+	//restarts the game
 	private void restart(){
 		snake.initSnake();
 		score = 0;
@@ -91,6 +99,7 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 		timer.start();
 	}
 	
+	//Scoreboard getter
 	public JLabel getScoreBoard() {
 		return scoreBoard;
 	}
@@ -104,7 +113,7 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 		g.setColor(Color.WHITE);
 	}
 
-	//Getting Input
+	//Getting User keyboard input
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -137,6 +146,11 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.repaint();
+	}
+
 	@Deprecated
 	@Override
 	public void keyReleased(KeyEvent e){}
@@ -145,12 +159,5 @@ public class Game extends JPanel implements ActionListener,KeyListener{
 	@Deprecated
 	@Override
 	public void keyTyped(KeyEvent e) {}
-
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.repaint();
-	}
-
 
 }

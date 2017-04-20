@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class Snake {
 	
+	//Fields
 	private ArrayList<SnakeEntity> snakeBody;
 	private SnakeEntity snakeHead;
 	private Food food;
@@ -19,10 +20,12 @@ public class Snake {
 	private int dx;
 	private int dy;
 	
+	//Constructor
 	public Snake(){
 		initSnake();
 	}
 	
+	//Initialise the snake
 	public void initSnake(){
 		this.snakeHead = new SnakeEntity(0,0);
 		this.snakeBody = new ArrayList<>();
@@ -32,6 +35,7 @@ public class Snake {
 		this.dy = 0;
 	}	
 	
+	//Increase the length of the snake
 	public void grow(){
 		int  previousPartX = snakeBody.get(snakeLength-1).getX();
 		int  previousPartY = snakeBody.get(snakeLength-1).getY();
@@ -39,11 +43,13 @@ public class Snake {
 		snakeLength++;
 	}
 	
+	//Set direction increment along X axis
 	public void setDx(int dx) {
 		this.dx = dx*10;
 		this.dy = 0;
 	}
 	
+	//Set direction increment along Y axis
 	public void setDy(int dy) {
 		this.dy = dy*10;
 		this.dx = 0;
@@ -57,6 +63,7 @@ public class Snake {
 		return dy;
 	}
 	
+	//Get the total length of the snake
 	public int getSnakeLength() {
 		return snakeLength;
 	}
@@ -69,7 +76,7 @@ public class Snake {
 		return snakeBody;
 	}
 	
-	
+	//move the snake
 	private void move(){
 		int lastCoorX = snakeHead.getX();
 		int lastCoorY = snakeHead.getY();
@@ -77,6 +84,7 @@ public class Snake {
 		attachTail(lastCoorX,lastCoorY);
 	}
 	
+	//Attach the tail to the snake head
 	private void attachTail(int hLastX, int hLastY){
 		int lastX = snakeBody.get(0).getX();
 		int lastY = snakeBody.get(0).getY();
@@ -91,6 +99,8 @@ public class Snake {
 		}
 	}
 	
+	
+	//Draws the snake
 	public void draw(Graphics2D g2d){
 		this.move();
 		g2d.setColor(SnakeEntity.getSnakeColor());
@@ -98,7 +108,6 @@ public class Snake {
 		for(SnakeEntity part : snakeBody){
 			g2d.fill(part.getSnakeEntity());
 		}
-		//System.out.println(snakeHead.getX()+" "+snakeHead.getY()+ " "+ food.getX() + " "+food.getY());
 	}
 
 }
