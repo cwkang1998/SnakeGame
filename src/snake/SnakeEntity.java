@@ -2,7 +2,12 @@ package snake;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-
+/**
+ * 
+ * @author Chen Wen Kang
+ * SnakeEntity represents each section of a Snake
+ *
+ */
 public class SnakeEntity{
 	
 	private Rectangle snakeRect;
@@ -12,16 +17,10 @@ public class SnakeEntity{
 	private static final int SNAKE_HEIGHT = 10;
 	private static final Color SNAKE_COLOR = Color.WHITE;
 	
-	public SnakeEntity(){
-		snakeRect = new Rectangle(SNAKE_WIDTH,SNAKE_HEIGHT);
-		this.x = 0;
-		this.y = 0;
-	}
-	
 	public SnakeEntity(int x,int y){
-		snakeRect = new Rectangle(SNAKE_WIDTH,SNAKE_HEIGHT);
 		this.x = x;
 		this.y = y;
+		snakeRect = new Rectangle(this.x,this.y,SNAKE_WIDTH,SNAKE_HEIGHT);
 	}
 	
 	public int getX() {

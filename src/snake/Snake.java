@@ -3,10 +3,18 @@ package snake;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Chen Wen Kang
+ * Class for Full Snake Object, Dependent of the Snake Entity Class
+ * which represents each section of the full snake
+ *
+ */
 public class Snake {
 	
 	private ArrayList<SnakeEntity> snakeBody;
 	private SnakeEntity snakeHead;
+	private Food food;
 	private int snakeLength;
 	private int dx;
 	private int dy;
@@ -15,15 +23,14 @@ public class Snake {
 		initSnake();
 	}
 	
-	private void initSnake(){
-		this.snakeHead = new SnakeEntity(1,0);
+	public void initSnake(){
+		this.snakeHead = new SnakeEntity(0,0);
 		this.snakeBody = new ArrayList<>();
-		this.snakeBody.add(new SnakeEntity(0,0));
+		this.snakeBody.add(new SnakeEntity(-1,0));
 		this.snakeLength = 1;
 		this.dx = 10;
 		this.dy = 0;
-	}
-	
+	}	
 	
 	public void grow(){
 		int  previousPartX = snakeBody.get(snakeLength-1).getX();
@@ -50,6 +57,19 @@ public class Snake {
 		return dy;
 	}
 	
+	public int getSnakeLength() {
+		return snakeLength;
+	}
+	
+	public SnakeEntity getSnakeHead() {
+		return snakeHead;
+	}
+	
+	public ArrayList<SnakeEntity> getSnakeBody() {
+		return snakeBody;
+	}
+	
+	
 	private void move(){
 		int lastCoorX = snakeHead.getX();
 		int lastCoorY = snakeHead.getY();
@@ -73,27 +93,12 @@ public class Snake {
 	
 	public void draw(Graphics2D g2d){
 		this.move();
-		this.checkCollision();
 		g2d.setColor(SnakeEntity.getSnakeColor());
 		g2d.fill(snakeHead.getSnakeEntity());
 		for(SnakeEntity part : snakeBody){
 			g2d.fill(part.getSnakeEntity());
 		}
-	}
-	
-	private void checkCollision(){
-		if(snakeHead.getX()<0||snakeHead.getY()<0||
-				snakeHead.getX()>Display.WINDOWS_WIDTH+10||snakeHead.getY()>Display.WINDOWS_HEIGHT){
-			initSnake();
-		}
-		else{
-			for(SnakeEntity part : snakeBody){
-				if(snakeHead.getX() == part.getX()&&snakeHead.getY()==part.getY()){
-					initSnake();
-					break;
-				}
-			}
-		}
+		//System.out.println(snakeHead.getX()+" "+snakeHead.getY()+ " "+ food.getX() + " "+food.getY());
 	}
 
 }

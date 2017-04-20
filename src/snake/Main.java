@@ -10,23 +10,26 @@ import javax.swing.Timer;
 public class Main {
 	
 	private JFrame frame;
-	private Display display;
+	private Game game;
 	private Timer timer;
 	
 	public Main(){
 		frame = new JFrame("Snake");
-		display = new Display();
-		timer = new Timer(90,display);
+		game = new Game();
+		timer = new Timer(90,game);
+		game.initTimer(timer);
+		
 		frame.setLayout(new BorderLayout());
-		frame.add(display,BorderLayout.CENTER);
-		frame.add(new Label("Test"), BorderLayout.SOUTH);
-		frame.addKeyListener(display);
+		frame.add(game,BorderLayout.CENTER);
+		frame.add(game.getScoreBoard(), BorderLayout.NORTH);
+		frame.addKeyListener(game);
 		frame.pack();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		System.out.println(	frame.getSize() + " "+display.getSize());
+		
+		System.out.println(	frame.getSize() + " "+game.getSize());
 		timer.start();
 	}
 	
